@@ -1,0 +1,135 @@
+Name: "scene_setRoom_and_Assets"
+scene:
+  assets:
+    - img:
+        id: "pavimento"
+        src: "assets/texture_pavimento.jpg"
+    - img:
+        id: "pareti"
+        src: "assets/texture_pareti.jpg"
+    - img:
+        id: "sky"
+        src: "assets/texture_sky.jpg"
+    - img:
+        id: "porta"
+        src: "assets/texture_porta.jpg"
+    - img:
+        id: "vaso"
+        src: "assets/texture_vaso.jpg"
+    - img:
+        id: "table"
+        src: "assets/texture_tavolo.jpg"
+    - img:
+        id: "quadro"
+        src: "assets/texture_quadro.jpg"
+    - img:
+        id: "fiori"
+        src: "assets/texture_fiori.png"
+    - img:
+        id: "tappeto"
+        src: "assets/texture_tappeto.png"
+    - img:
+        id: "libri"
+        src: "assets/texture_libri.jpg"
+    - img:
+        id: "libreria"
+        src: "assets/texture_libreria.jpg"
+    - img:
+        id: "finestra"
+        src: "assets/texture_finestra.jpg"
+    - img:
+        id: "televisione"
+        src: "assets/texture_tv.jpg"
+    - a-asset-item:
+        id: "sofa"
+        src: "assets/sofa.glb"
+    - a-asset-item:
+        id: "roof"
+        src: "assets/roof.glb"
+    - a-asset-item:
+        id: "bed"
+        src: "assets/bed.glb"
+    - a-asset-item:
+        id: "chair"
+        src: "assets/chair.glb"
+    - a-asset-item:
+        id: "face"
+        src: "assets/face.glb"
+    - a-asset-item:
+        id: "man_body"
+        src: "assets/man_body.glb"
+    - a-asset-item:
+        id: "man_eyes"
+        src: "assets/man_eyes.glb"
+    - a-asset-item:
+        id: "man_hair"
+        src: "assets/man_hair.glb"
+    - a-asset-item:
+        id: "man_mustache"
+        src: "assets/man_mustache.glb"
+    - a-asset-item:
+        id: "man_body2"
+        src: "assets/man_body2.glb"
+    - a-asset-item:
+        id: "man_tshirt"
+        src: "assets/man_tshirt.glb"
+    - a-asset-item:
+        id: "man_jeans"
+        src: "assets/man_jeans.glb"
+    - a-asset-item:
+        id: "man_shoes"
+        src: "assets/man_shoes.glb"
+    - a-asset-item:
+        id: "man_watch"
+        src: "assets/man_watch.glb"
+    - a-asset-item:
+        id: "woman_body"
+        src: "assets/woman_body.glb"
+    - a-asset-item:
+        id: "woman_eyes"
+        src: "assets/woman_eyes.glb"
+    - a-asset-item:
+        id: "woman_hair"
+        src: "assets/woman_hair.glb"
+    - a-asset-item:
+        id: "woman_lips"
+        src: "assets/woman_lips.glb"
+    - a-asset-item:
+        id: "woman_body2"
+        src: "assets/woman_body2.glb"
+    - a-asset-item:
+        id: "woman_dress"
+        src: "assets/woman_dress.glb"
+    - a-asset-item:
+        id: "woman_shoes"
+        src: "assets/woman_shoes.glb"
+    - a-asset-item:
+        id: "woman_glasses"
+        src: "assets/woman_glasses.glb"
+  entities:
+    - entity:
+        id: "parete_1"
+        geometry: "primitive: box; width: 50; depth: 0.5; height: 14"
+        position: "0 2 0"
+        rotation: "0 0 0"
+        material: "src: #pareti"
+    - entity:
+        id: "parete_2"
+        geometry: "primitive: box; width: 50; depth: 0.5; height: 14"
+        position: "25 2 25"
+        rotation: "0 90 0"
+        material: "src: #pareti"
+    - entity:
+        id: "parete_3"
+        geometry: "primitive: box; width: 50; depth: 0.5; height: 14"
+        position: "-25 2 25"
+        rotation: "0 90 0"
+        material: "src: #pareti"
+    - entity:
+        id: "pavimento"
+        geometry: "primitive: plane; width: 50; height: 50"
+        position: "0 -5 25"
+        rotation: "-90 0 0"
+        material: "src: #pavimento"
+    - sky:
+        src: "#sky"

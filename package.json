@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "aframe-mqtt": "^1.0.3",
+    "ws": "^8.12.1"
+  }
+}

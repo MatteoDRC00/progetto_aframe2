@@ -1,0 +1,265 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Room A-Frame</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+
+    <script src="static/assets/custom.js"></script>
+</head>
+<body>
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+
+        <a-assets>
+
+            <!--Texture-->
+            <img id="pavimento" src="static/assets/texture_pavimento.jpg">
+            <img id="tovaglia" src="static/assets/texture_tovaglia.png">
+            <img id="pareti" src="static/assets/texture_pareti.jpg">
+            <img id="sky" src="static/assets/texture_sky.jpg">
+            <img id="vaso" src="static/assets/texture_vaso.jpg">
+            <img id="table" src="static/assets/texture_tavolo.jpg">
+            <img id="quadro" src="static/assets/texture_quadro.jpg">
+            <img id="fiori" src="static/assets/texture_fiori.png">
+            <img id="tappeto" src="static/assets/texture_tappeto.png">
+            <img id="libri" src="static/assets/texture_libri.jpg">
+            <img id="libreria" src="static/assets/texture_libreria.jpg">
+            <img id="porta" src="static/assets/texture_porta.jpg">
+            <img id="finestra" src="static/assets/texture_finestra.jpg">
+            <img id="televisione" src="static/assets/texture_tv.jpg">
+
+        </a-assets>
+
+        <!--Camera-->
+        <a-entity id="camera" position="0 0 40" camera universal-controls wasd-controls="fly:true" look-controls></a-entity>
+
+        <!--Pareti-->
+        <a-entity id="parete_1" geometry="primitive: box; width: 50; depth: 0.5; height: 14" position="0 0 0" material="src: #pareti"></a-entity>
+        <a-entity id="parete_2" geometry="primitive: box; width: 50; depth: 0.5; height: 14" position="25 0 25" rotation="0 90 0" material="src: #pareti"></a-entity>
+        <a-entity id="parete_3" geometry="primitive: box; width: 50; depth: 0.5; height: 14" position="-25 0 25" rotation="0 90 0" material="src: #pareti"></a-entity>
+
+        <!--Pavimento nella stanza-->
+        <a-entity id="pavimento" geometry="primitive: plane; width: 50; height: 50" position="0 -5 25" rotation="-90 0 0" material="src: #pavimento"></a-entity>
+        <a-sky src="#sky"></a-sky>
+
+        <a-entity id="menu" visible="false" position="">
+            <a-entity id="label" geometry="primitive: box; width: 8; depth: 0.1; height: 7" material="color: #007FFF"></a-entity>
+            <a-text id="name" align="center" font="kelsonsans" value="" position="0 3 0.2" width="10" color="black"></a-text>
+            <a-text align="center" font="kelsonsans" value="Scegli il livello di dettaglio: " position="0 2 0.2" width="10" color="black"></a-text>
+            <a-entity selezionato class="clickable" id="livello1" geometry="primitive: box; width: 1; depth: 0.1; height: 0.25" material="color: blue" position="-3 0.125 0.2" ></a-entity>
+            <a-entity selezionato class="clickable" id="livello2" geometry="primitive: box; width: 1; depth: 0.1; height: 0.50" material="color: blue" position="-1 0.25 0.2"></a-entity>
+            <a-entity selezionato class="clickable" id="livello3" geometry="primitive: box; width: 1; depth: 0.1; height: 0.75" material="color: blue" position="1 0.375 0.2"></a-entity>
+            <a-entity selezionato class="clickable" id="livello4" geometry="primitive: box; width: 1; depth: 0.1; height: 1" material="color: blue" position="3 0.5 0.2"></a-entity>
+            <a-text align="center" font="kelsonsans" value="1               2               3               4" position="0 -0.5 0.2" width="10" color="black"></a-text>
+            <a-text font="kelsonsans" value="Stato di ultima modifica: " position="-3.7 -1.2 0.2" width="10" color="black"></a-text>
+            <a-text font="kelsonsans" value="Data di ultima modifica: " position="-3.7 -2 0.2" width="10" color="black"></a-text>
+            <a-entity id="annulla" geometry="primitive: box; width: 3; depth: 0.1; height: 0.6" material="color: red" position="-2 -3 0.2"></a-entity>
+            <a-entity class="clickable" id="conferma" geometry="primitive: box; width: 3; depth: 0.1; height: 0.6" material="color: green" position="2 -3 0.2"></a-entity>
+            <a-text align="center" font="kelsonsans" value="ANNULLA" position="-2 -3 0.3" width="10" color="black"></a-text>
+            <a-text align="center" font="kelsonsans" value="CONFERMA" position="2 -3 0.3" width="10" color="black"></a-text>
+        </a-entity>
+
+        <a-entity id="scene_base" visible="true">
+
+            <a-entity id="prima" class="clickable" geometry="primitive: box; width: 5; depth: 0.1; height: 5" position="-10 1.5 30" material="color: red" onclick="goToSceneObjects()"></a-entity>
+            <a-text id="text1" align="center" font="kelsonsans" value="PRIMA \n FUNZIONALITA': \n Scopri gli oggetti" position="-10 1.5 30.1" width="12" color="black"></a-text>
+            <a-entity id="setting1" class="clickable" geometry="primitive: box; width: 5; depth: 0.1; height: 2" position="-10 -2.5 30" material="color: gray" onclick="goToSceneObjectsSettings()"></a-entity>
+            <a-text id="text_setting1" align="center" font="kelsonsans" value="Impostazioni 1" position="-10 -2.5 30.1" width="12" color="black"></a-text>
+            <a-entity id="seconda" class="clickable" geometry="primitive: box; width: 5; depth: 0.1; height: 5" position="0 1.5 30" material="color: blue" onclick="goToScenePeople()"></a-entity>
+            <a-text id="text2" align="center" font="kelsonsans" value="SECONDA \n FUNZIONALITA': \n Scopri le persone" position="0 1.5 30.1" width="12" color="black"></a-text>
+            <a-entity id="setting2" class="clickable" geometry="primitive: box; width: 5; depth: 0.1; height: 2" position="0 -2.5 30" material="color: gray"></a-entity>
+            <a-text id="text_setting2" align="center" font="kelsonsans" value="Impostazioni 2" position="0 -2.5 30.1" width="12" color="black"></a-text>
+            <a-entity id="terza" class="clickable" geometry="primitive: box; width: 5; depth: 0.1; height: 5" position="10 1.5 30" material="color: green"></a-entity>
+            <a-text id="text3" align="center" font="kelsonsans" value="TERZA \n FUNZIONALITA': \n " position="10 1.5 30.1" width="12" color="black"></a-text>
+            <a-entity id="setting3" class="clickable" geometry="primitive: box; width: 5; depth: 0.1; height: 2" position="10 -2.5 30" material="color: gray"></a-entity>
+            <a-text id="text_setting3" align="center" font="kelsonsans" value="Impostazioni 3" position="10 -2.5 30.1" width="12" color="black"></a-text>
+
+        </a-entity>
+
+
+
+        <a-entity id="scene_objects" visible="false">
+
+            <!--Scritta sulla parete di fronte-->
+            <a-text id="text_objects" align="center" font="kelsonsans" value="CLICCA SU UN OGGETTO PER INIZIARE AD ESPLORARE!" position="0 0 1" width="50" color="blue"></a-text>
+
+            <a-entity class="clickable" id="porta" geometry="primitive: box; width: 5; depth: 0.4; height: 7" position="-24.8 -1.5 6" rotation="0 -90 0" material="src: #porta" onclick="goToSceneBase()"></a-entity>
+            <a-text id="exit" align="center" font="kelsonsans" value="Clicca sulla PORTA \n per USCIRE" position="-24 3.5 6" rotation="0 90 0" width="20" color="red"></a-text>
+            <a-entity id="tetto" gltf-model="#roof" scale="4 3.6 6" position="0 -5.08 25"></a-entity>
+
+            <!--Tappeto sotto il tavolo-->
+            <a-entity add_texture_objects class="clickable" id="carpet" geometry="primitive: box; width: 8; depth: 0.1; height: 12" position="0 -4.95 25" rotation="90 0 0" material="transparent:true"></a-entity>
+
+            <!--Tavolo al centro-->
+            <a-entity show_menu class="clickable" id="tavolo_1" geometry="primitive: cylinder; height: 3.4; radius: 3.5" position="0 -3.5 25" material="" visible="false"></a-entity>
+
+            <a-entity show_menu class="clickable" id="tavolo_2" visible="false">
+                <a-entity geometry="primitive: cylinder; height: 0.2; radius: 2" position="0 -4.9 25" material=""></a-entity>
+                <a-entity geometry="primitive: cylinder; height: 3; radius: 0.5" position="0 -3.5 25" material=""></a-entity>
+                <a-entity geometry="primitive: cylinder; height: 0.2; radius: 3.5" position="0 -1.9 25" material=""></a-entity>
+            </a-entity>
+
+            <a-entity show_menu class="clickable" id="tavolo_3" visible="false">
+                <a-entity geometry="primitive: cylinder; height: 0.2; radius: 2" position="0 -4.9 25" material=""></a-entity>
+                <a-entity geometry="primitive: cylinder; height: 3; radius: 0.5" position="0 -3.5 25" material=""></a-entity>
+                <a-entity geometry="primitive: cylinder; height: 0.2; radius: 3.5" position="0 -1.9 25" material=""></a-entity>
+                <a-entity geometry="primitive: cone; height: 1; radiusBottom: 0.5; radiusTop: 0.2" position="0 -1.3 25" material="transparent:true" rotation="180 0 0"></a-entity>
+                <a-entity geometry="primitive: box; width: 0.8; depth: 0.1; height: 1" position="0 -0.4 25" material="transparent:true"></a-entity>
+            </a-entity>
+
+            <a-entity show_menu class="clickable" id="tavolo_4" visible="true">
+                <a-entity class="clickable" geometry="primitive: cylinder; height: 0.2; radius: 2" position="0 -4.9 25" material="src: #table"></a-entity>
+                <a-entity class="clickable" geometry="primitive: cylinder; height: 3; radius: 0.5" position="0 -3.5 25" material="src: #table"></a-entity>
+                <a-entity class="clickable" geometry="primitive: cylinder; height: 0.2; radius: 3.5" position="0 -1.9 25" material="src: #table"></a-entity>
+                <a-entity class="clickable" geometry="primitive: cylinder; height: 0.1; radius: 2.3" position="0 -1.8 25" material="src: #tovaglia"></a-entity>
+                <a-entity class="clickable" geometry="primitive: cone; height: 1; radiusBottom: 0.5; radiusTop: 0.2" position="0 -1.3 25" material="src: #vaso; transparent:true" rotation="180 0 0"></a-entity>
+                <a-entity class="clickable" geometry="primitive: box; width: 0.8; depth: 0.1; height: 1" position="0 -0.4 25" material="src: #fiori; transparent:true"></a-entity>
+            </a-entity>
+
+
+            <!--Quadro-->
+            <a-entity add_texture_objects class="clickable" id="picture" geometry="primitive: box; width: 2.5; depth: 0.4; height: 5" position="-24.8 0 15" rotation="0 90 0" material=""></a-entity>
+
+            <!--TV-->
+            <a-entity add_texture_objects class="clickable" id="tv" geometry="primitive: box; width: 6; depth: 0.4; height: 4" position="-24.8 0 21" rotation="0 90 0" material=""></a-entity>
+
+            <!--Libreria-->
+            <a-entity show_menu class="clickable" id="bookshelf_1" geometry="primitive: box; width: 4; depth: 2.5; height: 7" position="23.75 -1.5 7" rotation="0 -90 0" material="" visible="false"></a-entity>
+
+            <a-entity show_menu class="clickable" id="bookshelf_2" visible="false">
+                <a-entity geometry="primitive: box; width: 4; depth: 0.4; height: 7" position="24.2 -1.5 7" rotation="0 -90 0" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 1.8 7" rotation="0 -90 0" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 -1.35 7" rotation="0 -90 0" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 -4.8 7" rotation="0 -90 0" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 2.5; depth: 0.4; height: 7" position="23.75 -1.5 5" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 2.5; depth: 0.4; height: 7" position="23.75 -1.5 9" material=""></a-entity>
+            </a-entity>
+
+            <a-entity show_menu class="clickable" id="bookshelf_3" visible="false">
+                <a-entity geometry="primitive: box; width: 4; depth: 0.4; height: 7" position="24.2 -1.5 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 1.8 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 -1.35 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 -4.8 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 2.5; depth: 0.4; height: 7" position="23.75 -1.5 5" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 2.5; depth: 0.4; height: 7" position="23.75 -1.5 9" material="src: #libreria"></a-entity>
+            </a-entity>
+
+            <a-entity show_menu class="clickable" id="bookshelf_4" visible="true">
+                <a-entity geometry="primitive: box; width: 4; depth: 0.4; height: 7" position="24.2 -1.5 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 1.8 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 3.5; depth: 2; height: 2.9" position="23.75 0.3 7" rotation="0 -90 0" material="src: #libri"></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 -1.35 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 3.5; depth: 2; height: 2.9" position="23.75 -3.2 7" rotation="0 -90 0" material="src: #libri"></a-entity>
+                <a-entity geometry="primitive: box; width: 4; depth: 2.5; height: 0.4" position="23.75 -4.8 7" rotation="0 -90 0" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 2.5; depth: 0.4; height: 7" position="23.75 -1.5 5" material="src: #libreria"></a-entity>
+                <a-entity geometry="primitive: box; width: 2.5; depth: 0.4; height: 7" position="23.75 -1.5 9" material="src: #libreria"></a-entity>
+            </a-entity>
+
+
+            <!--Poltrona-->
+            <a-entity show_menu class="clickable" id="poltrona_1" geometry="primitive: box; width: 7; depth: 4; height: 3" position="12 -3 26" rotation="0 -90 0" material="" visible="false"></a-entity>
+
+            <a-entity show_menu id="poltrona_2" class="clickable" visible="false">
+                <a-entity geometry="primitive: box; width: 7; depth: 4; height: 2" position="12 -4 26" rotation="0 -90 0" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 7; depth: 0.5; height: 4" position="14 -3 26" rotation="0 -90 0" material=""></a-entity>
+            </a-entity>
+
+            <a-entity show_menu id="poltrona_3" class="clickable" visible="true">
+                <a-entity geometry="primitive: box; width: 7; depth: 4; height: 2" position="12 -4 26" rotation="0 -90 0" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 7; depth: 0.5; height: 4" position="14 -3 26" rotation="0 -90 0" material="color: grey"></a-entity>
+                <a-entity geometry="primitive: box; width: 4.2; depth: 0.5; height: 3" position="12 -3.5 22.5" material="color: grey"></a-entity>
+                <a-entity geometry="primitive: box; width: 4.2; depth: 0.5; height: 3" position="12 -3.5 29.6" material="color: grey"></a-entity>
+            </a-entity>
+
+            <a-entity show_menu id="poltrona_4" gltf-model="#sofa" scale="0.04 0.04 0.04" position="12 -5 26" rotation="0 -90 0" visible="false"></a-entity>
+
+            <!--Letto-->
+            <a-entity show_menu class="clickable" id="letto_1" geometry="primitive: box; width: 6; depth: 9; height: 2.5" position="-12 -3.75 5" material="" visible="false"></a-entity>
+
+            <a-entity show_menu class="clickable" id="letto_2" visible="false">
+                <a-entity geometry="primitive: box; width: 6; depth: 9; height: 0.5" position="-12 -3.75 5" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 6; depth: 0.4; height: 1.25" position="-12 -4.375 9.3" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 6; depth: 0.4; height: 4" position="-12 -3 0.7" material=""></a-entity>
+            </a-entity>
+
+            <a-entity show_menu class="clickable" id="letto_3" visible="true">
+                <a-entity geometry="primitive: box; width: 6; depth: 9; height: 0.5" position="-12 -3.75 5" material="color: grey"></a-entity>
+                <a-entity geometry="primitive: box; width: 6; depth: 0.4; height: 1.75" position="-12 -4.35 9.4" material="color: black"></a-entity>
+                <a-entity geometry="primitive: box; width: 6; depth: 0.4; height: 4" position="-12 -3 0.7" material="color: black"></a-entity>
+                <a-entity geometry="primitive: cylinder; radius: 0.7; height: 2" position="-13.5 -3 1.5" rotation="0 0 90" material=""></a-entity>
+                <a-entity geometry="primitive: cylinder; radius: 0.7; height: 2" position="-10.5 -3 1.5" rotation="0 0 90" material=""></a-entity>
+            </a-entity>
+
+
+            <a-entity show_menu id="letto_4" gltf-model="#bed" scale="0.04 0.04 0.04" position="-12 -5 5" visible="false"></a-entity>
+
+
+            <!--Sedia-->
+            <a-entity show_menu class="clickable" id="sedia_1" geometry="primitive: box; width: 2; depth: 1.5; height: 4" position="-7 -3 25" material="" visible="false"></a-entity>
+
+            <a-entity show_menu class="clickable" id="sedia_2" visible="false">
+                <a-entity geometry="primitive: box; width: 0.5; depth: 1.5; height: 4" position="-8 -3 25" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 2; depth: 1.5; height: 2" position="-7 -4 25" material=""></a-entity>
+            </a-entity>
+
+            <a-entity show_menu class="clickable" id="sedia_3" visible="true">
+                <a-entity geometry="primitive: box; width: 0.5; depth: 1.5; height: 2" position="-8 -2 25" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 2; depth: 1.5; height: 0.3" position="-6.75 -3 25" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 0.5; depth: 0.5; height: 2" position="-8 -4 25.5" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 0.5; depth: 0.5; height: 2" position="-8 -4 24.5" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 0.5; depth: 0.5; height: 2" position="-6 -4 25.5" material=""></a-entity>
+                <a-entity geometry="primitive: box; width: 0.5; depth: 0.5; height: 2" position="-6 -4 24.5" material=""></a-entity>
+            </a-entity>
+
+
+            <a-entity show_menu class="clickable" id="sedia_4" gltf-model="#chair" scale="0 0 0" position="-7 -1 25" rotation="0 -90 0"></a-entity>
+
+        </a-entity>
+
+
+        <a-entity id="scene_people" visible="false">
+
+            <!--Scritta sulla parete di fronte-->
+            <a-text id="text_people" align="center" font="kelsonsans" value="CLICCA SUI MANICHINI PER SCOPRIRE CHI SI NASCONDE DIETRO!" position="0 0 1" width="50" color="blue"></a-text>
+
+            <!--Pareti-->
+            <a-entity class="clickable" id="porta" geometry="primitive: box; width: 5; depth: 0.4; height: 7" position="-24.8 -1.5 6" rotation="0 -90 0" material="src: #porta" onclick="goToSceneBase()"></a-entity>
+            <a-text id="exit" align="center" font="kelsonsans" value="Clicca sulla PORTA \n per USCIRE" position="-24 3.5 6" rotation="0 90 0" width="20" color="red"></a-text>
+            <a-entity id="tetto" gltf-model="#roof" scale="4 3.6 6" position="0 -5.08 25"></a-entity>
+
+            <!--Persone-->
+            <a-entity change_mesh class="clickable" id="person1" gltf-model="#male_body" scale="0.04 0.04 0.04" position="6 -5 25" visible="true"></a-entity>
+            <a-entity change_mesh class="clickable" id="person2" gltf-model="#female_body" scale="5.8 5.8 5.8" position="-6 -5 25" visible="true"></a-entity>
+
+            <a-entity id="eye1_person2" gltf-model="#eye1" scale="0.04 0.04 0.04" position="-6.14 1.4 25.28" rotation="30 0 0" visible="false"></a-entity>
+            <a-entity id="eye2_person2" gltf-model="#eye1" scale="0.04 0.04 0.04" position="-5.85 1.4 25.28" rotation="30 0 0" visible="false"></a-entity>
+
+            <a-entity id="eye1_person1" gltf-model="#eye2" scale="0.004 0.004 0.004" position="6.17 1.77 25.34" visible="false"></a-entity>
+            <a-entity id="eye2_person1" gltf-model="#eye2" scale="0.004 0.004 0.004" position="5.83 1.77 25.34" visible="false"></a-entity>
+
+            <a-entity id="face_person1" gltf-model="#face" scale="0.0005 0.00055 0.0005" position="6 0.85 24.995" visible="false"></a-entity>
+            <a-entity id="face_person2" gltf-model="#face" scale="0.00045 0.0005 0.00045" position="-6 0.56 24.957" visible="false"></a-entity>
+
+            <a-entity id="lips_person2" gltf-model="#lips_female" scale="0.6 0.6 0.6" position="-6 0.328 24.931" visible="false"></a-entity>
+            <a-entity id="mustache_person1" gltf-model="#man_mustache" scale="0.001 0.001 0.001" position="6 1.452 25.513" visible="false"></a-entity>
+
+            <a-entity id="hair_person2" gltf-model="#female_hair" scale="0.7 0.7 0.7" position="-6 1.32 25.09" visible="false"></a-entity>
+            <a-entity id="hair_person1" gltf-model="#man_hair" scale="1.8 1.8 1.8" position="5.976 -1.661 25.056" rotation="0 -82.252 0" visible="false"></a-entity>
+
+            <a-entity id="person1_next" gltf-model="#man_body2" scale="2.8 2.85 2.8" position="6 -5 25" visible="false"></a-entity>
+            <a-entity id="person2_next" gltf-model="#female_body2" scale="4.5 3.9 4.5" position="-6 -4.816 25" visible="false"></a-entity>
+
+            <a-entity id="dress_person2" gltf-model="#woman_dress" scale="4.3 3.5 6" position="-5.974 -4.891 25.092" visible="false"></a-entity>
+            <a-entity id="tshirt_person1" gltf-model="#man_tshirt" scale="0.12 0.1 0.135" position="6 -5.32 25.3" visible="false"></a-entity>
+            <a-entity id="jeans_person1" gltf-model="#man_jeans" scale="0.75 0.65 1" position="6 -4.747 25.365" visible="false"></a-entity>
+
+            <a-entity id="shoes_person2" gltf-model="#female_shoes" scale="3.2 5 4.5" position="-6 -4.9 25.216" visible="false"></a-entity>
+            <a-entity id="shoes_person1" gltf-model="#man_shoes" scale="5.7 5 4" position="6.03 -5.074 25.084" visible="false"></a-entity>
+
+            <a-entity id="glasses_person2" gltf-model="#glasses_woman" scale="0.085 0.085 0.085" position="-6 1.3 25.3" visible="false"></a-entity>
+            <a-entity id="watch_person1" gltf-model="#man_watch" scale="0.5 0.4 0.6" position="3.867 -0.538 25.134" rotation="-9.25 8.76 62.181" visible="false"></a-entity>
+
+        </a-entity>
+
+    </a-scene>
+</body>
+</html>

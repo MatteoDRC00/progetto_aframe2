@@ -1,0 +1,51 @@
+Name: "scene_base"
+visible: "true"
+scene:
+  entities:
+    - entity:
+        id: "prima"
+        class: "clickable"
+        geometry: "primitive: box; width: 5; depth: 0.1; height: 7"
+        position: "-10 -1 30"
+        material: "color: red"
+        onclick: "goToSceneObjects()"
+    - text:
+        id: "text1"
+        font: "kelsonsans"
+        color: "black"
+        position: "-10 -1 30.2"
+        align: "center"
+        width: "12"
+        value: "PRIMA \\n FUNZIONALITA': \\n Scopri gli oggetti"
+    - entity:
+        id: "seconda"
+        class: "clickable"
+        geometry: "primitive: box; width: 5; depth: 0.1; height: 7"
+        position: "0 -1 30"
+        material: "color: blue"
+        onclick: "goToScenePeople()"
+    - text:
+        id: "text2"
+        font: "kelsonsans"
+        color: "black"
+        position: "0 -1 30.2"
+        align: "center"
+        width: "12"
+        value: "SECONDA \\n FUNZIONALITA': \\n Scopri le persone"
+    - entity:
+        id: "terza"
+        class: "clickable"
+        geometry: "primitive: box; width: 5; depth: 0.1; height: 7"
+        position: "10 -1 30"
+        material: "color: green"
+        onclick: ""
+    - text:
+        id: "text1"
+        font: "kelsonsans"
+        color: "black"
+        position: "10 -1 30.2"
+        align: "center"
+        width: "12"
+        value: ""
+    - sky:
+        src: "#sky"
